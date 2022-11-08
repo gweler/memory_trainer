@@ -1,5 +1,7 @@
 // FIX Ctrl+C results in an endless loop
 
+// FIX Ctrl+C results in an endless loop
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -9,42 +11,42 @@ using namespace std;
 
 int main()
 {
-        int bodovi;
+        int score;
         int n;
         fstream file;
-        string pogrijec;
+        string entered_word;
         string word;
-        vector<string> rijeci;
+        vector<string> words;
 
         file.open("text_to_memorise.txt");
         n = 0;
         while (file >> word) {
                 n++;
-                rijeci.push_back(word);
+                words.push_back(word);
         }
         file.close();
 
-        bodovi = 0;
-        cout << "The first word is: " << rijeci[0] << "\n\n";
+        score = 0;
+        cout << "The first word is: " << words[0] << "\n\n";
 
         for(int i = 1; i < n; i++) {
                 for(;;) {
-                        cout << i + 1 << "st/nd/rd/th word: ";
-                        cin >> pogrijec;
-                        if (pogrijec == "?") {
-                                cout << "Preskakanje rijeci. Oduzima se bod.\n";
-                                bodovi--;
+                        cout << i + 1 << " (st/nd/rd/th) word: ";
+                        cin >> entered_word;
+                        if (entered_word == "?") {
+                                cout << "Skipping the word. A point is taken away.\n";
+                                score--;
                                 break;
                         }
-                        if (pogrijec != rijeci[i]) {
-                                cout << "Netacna rijec. Pokusaj ponovo.\n";
+                        if (entered_word != words[i]) {
+                                cout << "Wrong word, try again.\n";
                         } else {
-                                bodovi++;
+                                score++;
                                 break;
                         }
                 }
         }
-        cout << "\nKraj programa." << "\nBroj bodova: " << bodovi << "\n";
+        cout << "\nThe end :-)" << "\nScore: " << score << "\n";
 
         return 0;
 }
